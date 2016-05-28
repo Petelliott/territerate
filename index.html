@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body, canvas {margin: 0; padding: 0;}
+			canvas {position: absolute;}
+		</style>
+        <script src="territerate.js"></script>
+        <script>
+            var canvas = null;
+            var land = null;
+
+            window.onload = function(){
+                canvas = document.getElementById("canvas");
+
+                land = new landscape(canvas);
+                window.onresize();
+            };
+
+            window.onkeydown = function (e) {
+                e = e || window.event;
+                e = e.which || e.KeyCode
+                if (e == 32) {
+                    land.next();
+                }else if(e==18){
+                    land.clear();
+                    land = new landscape(canvas);
+                    land.redraw();
+                }
+            };
+
+            window.onresize = function(){
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                land.redraw();
+            };
+        </script>
+	</head>
+	<body>
+        <canvas id="canvas" width="1200" height="600"></canvas>
+    </body>
+</html>
