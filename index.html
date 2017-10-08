@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<style>
-			body, canvas {margin: 0; padding: 0;}
-			canvas {position: absolute;}
-		</style>
+    <head>
+        <style>
+            body, canvas {margin: 0; padding: 0;}
+            canvas {position: absolute;}
+        </style>
         <script src="territerate.js"></script>
         <script>
             var canvas = null;
@@ -12,7 +12,6 @@
 
             window.onload = function(){
                 canvas = document.getElementById("canvas");
-
                 land = new landscape(canvas);
                 window.onresize();
             };
@@ -22,6 +21,9 @@
                 e = e.which || e.KeyCode
                 if (e == 32) {
                     land.next();
+                    if(document.getElementById("hint")){
+                        document.body.removeChild(document.getElementById("hint"));
+                    }
                 }else if(e==18){
                     land.clear();
                     land = new landscape(canvas);
@@ -35,8 +37,9 @@
                 land.redraw();
             };
         </script>
-	</head>
-	<body>
+    </head>
+    <body>
         <canvas id="canvas" width="1200" height="600"></canvas>
+        <p id="hint">Press space to add detail</p>
     </body>
 </html>
