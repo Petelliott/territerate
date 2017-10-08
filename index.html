@@ -4,15 +4,21 @@
         <style>
             body, canvas {margin: 0; padding: 0;}
             canvas {position: absolute;}
+            #panel{
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
         </style>
         <script src="territerate.js"></script>
         <script>
             var canvas = null;
             var land = null;
+            var conditions;
 
             window.onload = function(){
                 canvas = document.getElementById("canvas");
-                land = new landscape(canvas);
+                land = new landscape(canvas, document.getElementById("inp_variance").value, conditions);
                 window.onresize();
             };
 
@@ -22,11 +28,11 @@
                 if (e == 32) {
                     land.next();
                     if(document.getElementById("hint")){
-                        document.body.removeChild(document.getElementById("hint"));
+                        document.getElementById("panel").removeChild(document.getElementById("hint"));
                     }
                 }else if(e==18){
                     land.clear();
-                    land = new landscape(canvas);
+                    land = new landscape(canvas, document.getElementById("inp_variance").value);
                     land.redraw();
                 }
             };
@@ -40,6 +46,10 @@
     </head>
     <body>
         <canvas id="canvas" width="1200" height="600"></canvas>
-        <p id="hint">Press space to add detail</p>
+        <div id="panel">
+            <p id="hint">Press space to add detail, Press alt to reset</p>
+            <label>Variance</label>
+            <input type="range" min="1" max="500" value="150" class="slider" id="inp_variance">
+        </div>
     </body>
 </html>
